@@ -1,0 +1,41 @@
+HELP.md
+
+# Maven
+target/
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Build output (caso use NetBeans ou outras ferramentas)
+build/
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente
+.env
