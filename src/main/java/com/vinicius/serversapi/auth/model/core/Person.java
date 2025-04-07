@@ -1,5 +1,6 @@
-package com.vinicius.serversapi.auth.model;
+package com.vinicius.serversapi.auth.model.core;
 
+import com.vinicius.serversapi.auth.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pessoa {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,21 +20,20 @@ public class Pessoa {
     private Long id;
 
     @Column(name = "pes_nome", length = 200)
-    private String nome;
+    private String name;
 
     @Column(name = "pes_data_nascimento")
-    private LocalDate dataNascimento;
+    private LocalDate birthDate;
 
-    @Column(name = "pes_sexo", length = 1)
-    private String sexo;
+    @Column(name = "pes_sexo", length = 9)
+    private String gender;
 
     @Column(name = "pes_mae", length = 200)
-    private String nomeMae;
+    private String motherName;
 
     @Column(name = "pes_pai", length = 200)
-    private String nomePai;
+    private String fatherName;
 
-    @OneToOne(mappedBy = "pessoa")
+    @OneToOne(mappedBy = "person")
     private User user;
 }
-

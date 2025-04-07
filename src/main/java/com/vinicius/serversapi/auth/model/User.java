@@ -1,5 +1,6 @@
 package com.vinicius.serversapi.auth.model;
 
+import com.vinicius.serversapi.auth.model.core.Person;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +36,7 @@ public class User implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pes_id")
-    private Pessoa pessoa;
+    private Person person;
 
     // Métodos da interface UserDetails
     @Override
