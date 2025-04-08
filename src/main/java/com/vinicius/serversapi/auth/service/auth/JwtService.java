@@ -1,4 +1,4 @@
-package com.vinicius.serversapi.auth.service;
+package com.vinicius.serversapi.auth.service.auth;
 
 import com.vinicius.serversapi.auth.model.User;
 import io.jsonwebtoken.Claims;

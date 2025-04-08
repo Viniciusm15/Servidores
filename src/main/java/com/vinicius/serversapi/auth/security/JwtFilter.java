@@ -1,7 +1,7 @@
 package com.vinicius.serversapi.auth.security;
 
 import com.vinicius.serversapi.auth.repository.UserRepository;
-import com.vinicius.serversapi.auth.service.JwtService;
+import com.vinicius.serversapi.auth.service.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

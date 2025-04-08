@@ -1,4 +1,4 @@
-package com.vinicius.serversapi.auth.dto;
+package com.vinicius.serversapi.auth.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
