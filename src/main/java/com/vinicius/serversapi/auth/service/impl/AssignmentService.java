@@ -1,6 +1,7 @@
-package com.vinicius.serversapi.auth.service;
+package com.vinicius.serversapi.auth.service.impl;
 
 import com.vinicius.serversapi.auth.dto.assignment.*;
+import com.vinicius.serversapi.auth.service.contract.IAssignmentService;
 import com.vinicius.serversapi.exception.NotFoundException;
 import com.vinicius.serversapi.auth.mapper.AssignmentMapper;
 import com.vinicius.serversapi.auth.model.core.Assignment;
@@ -16,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
-public class AssignmentService {
+public class AssignmentService implements IAssignmentService {
 
     private final AssignmentRepository assignmentRepository;
     private final PersonRepository personRepository;

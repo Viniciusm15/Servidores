@@ -1,7 +1,7 @@
 package com.vinicius.serversapi.auth.controller;
 
 import com.vinicius.serversapi.auth.dto.unit.*;
-import com.vinicius.serversapi.auth.service.UnitService;
+import com.vinicius.serversapi.auth.service.impl.UnitService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

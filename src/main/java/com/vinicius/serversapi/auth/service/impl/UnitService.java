@@ -1,9 +1,10 @@
-package com.vinicius.serversapi.auth.service;
+package com.vinicius.serversapi.auth.service.impl;
 
 import com.vinicius.serversapi.auth.dto.unit.*;
 import com.vinicius.serversapi.auth.mapper.UnitMapper;
 import com.vinicius.serversapi.auth.model.core.Unit;
 import com.vinicius.serversapi.auth.repository.UnitRepository;
+import com.vinicius.serversapi.auth.service.contract.IUnitService;
 import com.vinicius.serversapi.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
-public class UnitService {
+public class UnitService implements IUnitService {
     private final UnitRepository repository;
     private final UnitMapper mapper;
 

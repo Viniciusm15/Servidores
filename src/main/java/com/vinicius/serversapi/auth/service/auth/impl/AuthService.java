@@ -1,10 +1,13 @@
-package com.vinicius.serversapi.auth.service.auth;
+package com.vinicius.serversapi.auth.service.auth.impl;
 
+import com.vinicius.serversapi.auth.dto.auth.AuthResponse;
+import com.vinicius.serversapi.auth.dto.auth.LoginRequest;
+import com.vinicius.serversapi.auth.dto.auth.RegisterRequest;
 import com.vinicius.serversapi.auth.model.User;
 import com.vinicius.serversapi.auth.model.core.Person;
 import com.vinicius.serversapi.auth.repository.UserRepository;
-import com.vinicius.serversapi.auth.service.PersonService;
-import com.vinicius.serversapi.auth.dto.auth.*;
+import com.vinicius.serversapi.auth.service.auth.contract.IAuthService;
+import com.vinicius.serversapi.auth.service.impl.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthService implements IAuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -21,6 +24,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final PersonService personService;
 
+    @Override
     public AuthResponse register(RegisterRequest request) {
         Person person = personService.createAndReturnEntity(request.getPerson());
 
@@ -41,6 +45,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     public AuthResponse authenticate(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

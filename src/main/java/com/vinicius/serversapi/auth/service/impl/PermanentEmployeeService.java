@@ -1,10 +1,11 @@
-package com.vinicius.serversapi.auth.service;
+package com.vinicius.serversapi.auth.service.impl;
 
 import com.vinicius.serversapi.auth.dto.employee.PermanentEmployeeRequestDto;
 import com.vinicius.serversapi.auth.dto.employee.PermanentEmployeeResponseDto;
 import com.vinicius.serversapi.auth.mapper.PermanentEmployeeMapper;
 import com.vinicius.serversapi.auth.repository.PermanentEmployeeRepository;
 import com.vinicius.serversapi.auth.repository.PersonRepository;
+import com.vinicius.serversapi.auth.service.contract.IPermanentEmployeeService;
 import com.vinicius.serversapi.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
-public class PermanentEmployeeService {
+public class PermanentEmployeeService implements IPermanentEmployeeService {
 
     private final PermanentEmployeeRepository repository;
     private final PermanentEmployeeMapper mapper;

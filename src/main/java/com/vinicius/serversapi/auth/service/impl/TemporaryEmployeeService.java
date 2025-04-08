@@ -1,4 +1,4 @@
-package com.vinicius.serversapi.auth.service;
+package com.vinicius.serversapi.auth.service.impl;
 
 import com.vinicius.serversapi.auth.dto.employee.*;
 import com.vinicius.serversapi.auth.dto.employee.TemporaryEmployeeResponseDto;
@@ -7,6 +7,7 @@ import com.vinicius.serversapi.auth.model.core.Person;
 import com.vinicius.serversapi.auth.model.core.TemporaryEmployee;
 import com.vinicius.serversapi.auth.repository.PersonRepository;
 import com.vinicius.serversapi.auth.repository.TemporaryEmployeeRepository;
+import com.vinicius.serversapi.auth.service.contract.ITemporaryEmployeeService;
 import com.vinicius.serversapi.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TemporaryEmployeeService {
+public class TemporaryEmployeeService implements ITemporaryEmployeeService {
 
     private final TemporaryEmployeeRepository repository;
     private final PersonRepository personRepository;

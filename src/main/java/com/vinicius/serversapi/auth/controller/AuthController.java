@@ -1,7 +1,7 @@
 package com.vinicius.serversapi.auth.controller;
 
 import com.vinicius.serversapi.auth.dto.auth.*;
-import com.vinicius.serversapi.auth.service.auth.AuthService;
+import com.vinicius.serversapi.auth.service.auth.impl.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
