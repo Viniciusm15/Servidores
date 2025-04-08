@@ -4,6 +4,7 @@ import com.vinicius.serversapi.auth.dto.unit.*;
 import com.vinicius.serversapi.auth.mapper.UnitMapper;
 import com.vinicius.serversapi.auth.model.core.Unit;
 import com.vinicius.serversapi.auth.repository.UnitRepository;
+import com.vinicius.serversapi.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,10 @@ public class UnitService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        Unit unit = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Unidade não encontrada"));
+
+        unit.setDeleted(true);
+        repository.save(unit);
     }
 }

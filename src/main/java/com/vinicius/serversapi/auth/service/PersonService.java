@@ -46,6 +46,8 @@ public class PersonService {
     public void delete(Long id) {
         Person person = personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Pessoa não encontrada"));
-        personRepository.delete(person);
+
+        person.setDeleted(true);
+        personRepository.save(person);
     }
 }

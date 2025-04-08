@@ -1,8 +1,11 @@
 package com.vinicius.serversapi.auth.model.core;
 
 import com.vinicius.serversapi.auth.model.User;
+import com.vinicius.serversapi.auth.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
@@ -11,13 +14,9 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Person {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pes_id")
-    private Long id;
+@SuperBuilder
+@Where(clause = "is_deleted = false")
+public class Person extends BaseEntity {
 
     @Column(name = "pes_nome", length = 200)
     private String name;

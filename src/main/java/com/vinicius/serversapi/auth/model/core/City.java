@@ -1,20 +1,19 @@
 package com.vinicius.serversapi.auth.model.core;
 
+import com.vinicius.serversapi.auth.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "cidade")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class City {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cid_id")
-    private Long id;
+@SuperBuilder
+@Where(clause = "is_deleted = false")
+public class City extends BaseEntity {
 
     @Column(name = "cid_nome", length = 200)
     private String name;

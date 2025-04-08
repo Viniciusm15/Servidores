@@ -69,6 +69,7 @@ public class AssignmentService {
         Assignment assignment = assignmentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Lotação não encontrada"));
 
-        assignmentRepository.delete(assignment);
+        assignment.setDeleted(true);
+        assignmentRepository.save(assignment);
     }
 }

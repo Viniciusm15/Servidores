@@ -3,25 +3,23 @@ package com.vinicius.serversapi.auth.model;
 import com.vinicius.serversapi.auth.model.core.Person;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
+@SuperBuilder
+@Where(clause = "is_deleted = false")
+public class User extends BaseEntity implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -34,11 +32,11 @@ public class User implements UserDetails {
 
     private String role; // ex: USER, ADMIN
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "pes_id")
     private Person person;
 
-    // Métodos da interface UserDetails
+    // Implementações do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));

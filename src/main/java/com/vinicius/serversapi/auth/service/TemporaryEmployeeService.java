@@ -56,9 +56,10 @@ public class TemporaryEmployeeService {
     }
 
     public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("Servidor temporário não encontrado");
-        }
-        repository.deleteById(id);
+        TemporaryEmployee employee = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Servidor temporário não encontrado"));
+
+        employee.setDeleted(true);
+        repository.save(employee);
     }
 }

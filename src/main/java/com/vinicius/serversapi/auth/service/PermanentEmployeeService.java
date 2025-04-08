@@ -2,7 +2,6 @@ package com.vinicius.serversapi.auth.service;
 
 import com.vinicius.serversapi.auth.dto.employee.PermanentEmployeeRequestDto;
 import com.vinicius.serversapi.auth.dto.employee.PermanentEmployeeResponseDto;
-import com.vinicius.serversapi.auth.model.core.PermanentEmployee;
 import com.vinicius.serversapi.auth.mapper.PermanentEmployeeMapper;
 import com.vinicius.serversapi.auth.repository.PermanentEmployeeRepository;
 import com.vinicius.serversapi.auth.repository.PersonRepository;
@@ -49,9 +48,10 @@ public class PermanentEmployeeService {
     }
 
     public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new NotFoundException("Servidor efetivo não encontrado");
-        }
-        repository.deleteById(id);
+        var employee = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Servidor efetivo não encontrado"));
+
+        employee.setDeleted(true);
+        repository.save(employee);
     }
 }

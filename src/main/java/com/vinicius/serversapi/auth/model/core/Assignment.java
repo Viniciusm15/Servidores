@@ -1,7 +1,10 @@
 package com.vinicius.serversapi.auth.model.core;
 
+import com.vinicius.serversapi.auth.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
@@ -10,13 +13,9 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Assignment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lot_id")
-    private Long id;
+@SuperBuilder
+@Where(clause = "is_deleted = false")
+public class Assignment extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "pes_id")
