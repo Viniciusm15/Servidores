@@ -226,16 +226,39 @@ http://localhost:8080/swagger-ui/index.html
 
 ### 🔐 Login e Autenticação
 
-1. Acesse a rota: `POST /auth/login` com um usuário válido
-2. Exemplo de payload:
+> ⚠️ **Importante:** Para acessar rotas administrativas (como cadastro de servidores, unidades, cidades etc), é necessário possuir um usuário com o papel `ADMIN`.
+
+#### ✅ Como criar um usuário com role `ADMIN`:
+
+1. Registre um novo usuário via rota pública:
+
+**Exemplo de payload:**
+
 ```json
 {
-  "username": "vinicius",
-  "password": "123456"
+  "username": "admin",
+  "email": "admin@seplag.local",
+  "password": "admin123"
 }
 ```
-3. Você receberá um token JWT
-4. No Swagger, clique em **Authorize** e insira:
+2. Em seguida, acesse o banco de dados PostgreSQL e execute o seguinte comando SQL:
+
+```sql
+UPDATE users SET role = 'ADMIN' WHERE username = 'admin';
+```
+
+### 🔓 Autenticando na aplicação:
+
+1. Acesse a rota: POST /auth/login com o usuário criado:
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+2. Você receberá um token JWT
+3. No Swagger, clique em **Authorize** e insira no campo:
+
 ```
 Bearer SEU_TOKEN_AQUI
 ```
