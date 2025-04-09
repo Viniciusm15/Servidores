@@ -1,6 +1,7 @@
 package com.vinicius.serversapi.auth.controller;
 
 import com.vinicius.serversapi.auth.dto.auth.*;
+import com.vinicius.serversapi.auth.model.User;
 import com.vinicius.serversapi.auth.service.auth.impl.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,5 +38,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.authenticate(request));
+    }
+
+    @Operation(summary = "Renovar token JWT")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Token renovado com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Token expirado ou inválido")
+    })
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refresh(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(authService.refreshToken(user));
     }
 }

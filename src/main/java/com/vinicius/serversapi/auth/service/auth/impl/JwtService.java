@@ -2,48 +2,55 @@ package com.vinicius.serversapi.auth.service.auth.impl;
 
 import com.vinicius.serversapi.auth.model.User;
 import com.vinicius.serversapi.auth.service.auth.contract.IJwtService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
 public class JwtService implements IJwtService {
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private String secret;
 
-    private static final long EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutos
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
+
+    private static final long EXPIRATION_TIME_MS = 5 * 60 * 1000; // 5 minutos
 
     @Override
     public String generateToken(User user) {
+        return generateToken(user, Map.of());
+    }
+
+    @Override
+    public String generateToken(User user, Map<String, Object> extraClaims) {
         return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("role", user.getRole())
+                .setClaims(extraClaims)
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_MS))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, User user) {
         final String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
-    @Override
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    @Override
-    public boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -51,9 +58,15 @@ public class JwtService implements IJwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
+    @Override
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        final Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
         return claimsResolver.apply(claims);

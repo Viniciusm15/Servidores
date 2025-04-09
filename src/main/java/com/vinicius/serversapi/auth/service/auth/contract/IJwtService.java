@@ -1,11 +1,12 @@
 package com.vinicius.serversapi.auth.service.auth.contract;
 
 import com.vinicius.serversapi.auth.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.Map;
 
 public interface IJwtService {
     String generateToken(User user);
-    boolean isTokenValid(String token, UserDetails userDetails);
+    String generateToken(User user, Map<String, Object> extraClaims);
+    boolean isTokenValid(String token, User user);
     String extractUsername(String token);
-    boolean isTokenExpired(String token);
 }
+
