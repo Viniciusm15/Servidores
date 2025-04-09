@@ -6,9 +6,9 @@ Este repositório contém a implementação do desafio técnico proposto, com au
 
 ## 👤 Dados de Inscrição
 
+
 - **Nome:** Vinícius Hiago Martins
-- **Email:** viniciushiagomartins00@gmail.com
-- **LinkedIn:** [https://www.linkedin.com/in/vinicius-hiago-martins-a33ab617b/](https://www.linkedin.com/in/vinicius-hiago-martins-a33ab617b/)
+- **PSS 02/2025/SEPLAG (Analista de TI - Perfil Junior, Pleno e Sênior)** DESENVOLVEDOR JAVA (BACK-END) - JÚNIOR
 
 ---
 
