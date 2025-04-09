@@ -41,6 +41,7 @@ public class PermanentEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor não encontrado")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PermanentEmployeeResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(permanentEmployeeService.getById(id));
     }
@@ -50,6 +51,7 @@ public class PermanentEmployeeController {
             @ApiResponse(responseCode = "200", description = "Lista de servidores retornada com sucesso")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<PermanentEmployeeResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(permanentEmployeeService.getAll(pageable));
     }

@@ -45,6 +45,7 @@ public class PersonController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PersonResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.getById(id));
     }
@@ -55,6 +56,7 @@ public class PersonController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<PersonResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(personService.getAll(pageable));
     }

@@ -41,6 +41,7 @@ public class TemporaryEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor temporário não encontrado")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TemporaryEmployeeResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(temporaryEmployeeService.getById(id));
     }
@@ -50,6 +51,7 @@ public class TemporaryEmployeeController {
             @ApiResponse(responseCode = "200", description = "Lista de servidores temporários retornada com sucesso")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<TemporaryEmployeeResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(temporaryEmployeeService.getAll(pageable));
     }

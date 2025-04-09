@@ -25,47 +25,49 @@ public class AddressController {
     private final AddressService addressService;
 
     @Operation(summary = "Cadastrar novo endereço")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Endereço cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AddressResponseDto> create(@RequestBody AddressRequestDto dto) {
         return ResponseEntity.ok(addressService.create(dto));
     }
 
     @Operation(summary = "Buscar endereço por ID")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Endereço encontrado"),
             @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AddressResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(addressService.getById(id));
     }
 
     @Operation(summary = "Listar todos os endereços (paginado)")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista de endereços retornada com sucesso"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<AddressResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(addressService.getAll(pageable));
     }
 
     @Operation(summary = "Atualizar um endereço existente")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AddressResponseDto> update(
             @PathVariable Long id,
             @RequestBody AddressRequestDto dto
@@ -74,13 +76,13 @@ public class AddressController {
     }
 
     @Operation(summary = "Remover endereço")
-    @ApiResponses(value = {
+    @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Endereço removido com sucesso"),
             @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         addressService.delete(id);
         return ResponseEntity.noContent().build();

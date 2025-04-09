@@ -41,6 +41,7 @@ public class CityController {
             @ApiResponse(responseCode = "404", description = "Cidade não encontrada")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<CityResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(cityService.getById(id));
     }
@@ -50,6 +51,7 @@ public class CityController {
             @ApiResponse(responseCode = "200", description = "Lista de cidades retornada com sucesso")
     })
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CityResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(cityService.getAll(pageable));
     }

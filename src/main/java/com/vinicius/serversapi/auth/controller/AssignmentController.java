@@ -43,7 +43,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AssignmentResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(assignmentService.getById(id));
     }
@@ -54,7 +54,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<AssignmentResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assignmentService.getAll(pageable));
     }
@@ -66,7 +66,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/permanent-employees/by-unit/{unitId}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<AssignmentResponseDto>> getPermanentEmployeesByUnit(
             @PathVariable Long unitId,
             Pageable pageable) {

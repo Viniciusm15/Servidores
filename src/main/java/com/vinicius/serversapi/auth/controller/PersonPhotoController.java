@@ -51,6 +51,7 @@ public class PersonPhotoController {
             @ApiResponse(responseCode = "404", description = "Foto não encontrada")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PersonPhotoResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(personPhotoService.getById(id));
     }
@@ -60,6 +61,7 @@ public class PersonPhotoController {
             @ApiResponse(responseCode = "200", description = "Lista de fotos retornada com sucesso")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<PersonPhotoResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(personPhotoService.getAll(pageable));
     }

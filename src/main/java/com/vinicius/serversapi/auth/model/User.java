@@ -63,4 +63,8 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Long getPersonId() {
+        return this.person != null ? this.person.getId() : null;
+    }
 }

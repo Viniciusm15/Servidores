@@ -52,6 +52,7 @@ public class UnitController {
             @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UnitResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(unitService.getById(id));
     }
@@ -61,6 +62,7 @@ public class UnitController {
             @ApiResponse(responseCode = "200", description = "Lista de unidades retornada com sucesso")
     })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<UnitResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(unitService.getAll(pageable));
     }
