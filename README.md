@@ -106,11 +106,11 @@ POSTGRES_DB=serversdb
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 
-# Minio (Armazenamento de Objetos)
+# Minio
 MINIO_ROOT_USER=minio
 MINIO_ROOT_PASSWORD=minio123
 
-# API
+# API (Spring Boot)
 SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/serversdb
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=postgres
@@ -189,25 +189,17 @@ Crie um arquivo Dockerfile na raiz do projeto:
 
 ```bash
 # Usar uma imagem base do OpenJDK
-FROM openjdk:11-jre-slim
-
-# Diretório de trabalho dentro do container
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copiar o arquivo JAR da aplicação
-COPY target/api-1.0.0.jar app.jar
-
-# Copiar o arquivo de configuração para o diretório de recursos da aplicação
-COPY src/main/resources/application-docker.properties /app/resources/application-docker.properties
-
-# Expor a porta que a aplicação vai rodar
+# Etapa de runtime
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Definir a variável de ambiente para Spring usar o arquivo Docker
-ENV SPRING_PROFILES_ACTIVE=docker
-
-# Rodar a aplicação Spring Boot
-ENTRYPOINT ["java", "-Dspring.config.location=classpath:/application-docker.properties", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
 Execute o comando abaixo na raiz do projeto:
@@ -216,10 +208,11 @@ docker-compose up --build
 ```
 Isso irá iniciar:
 
-- 🌐 API: http://localhost:8080
-- 🐘 PostgreSQL: localhost:5432
-- 📦 MinIO: http://localhost:9000
-- 🖥️ Console MinIO: http://localhost:9001
+- 🌐 **API**: [http://localhost:8080](http://localhost:8080)
+- 📄 **Swagger**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- 🐘 **PostgreSQL**: `localhost:5432`
+- 📦 **MinIO**: [http://localhost:9000](http://localhost:9000)
+- 🖥️ **Console MinIO**: [http://localhost:9001](http://localhost:9001)
 ---
 
 ## 🧪 Testando a Aplicação
