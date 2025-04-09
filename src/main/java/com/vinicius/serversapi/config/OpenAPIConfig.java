@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "Sua API", version = "v1"),
+        info = @Info(title = "SeplagAPI", version = "v1"),
         security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(

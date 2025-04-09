@@ -9,8 +9,6 @@ import java.time.LocalDate;
 @Data
 public class TemporaryEmployeeRequestDto {
 
-    private Long id;
-
     @NotNull(message = "A data de admissão é obrigatória.")
     @FutureOrPresent(message = "A data de admissão não pode ser no passado.")
     private LocalDate admissionDate;

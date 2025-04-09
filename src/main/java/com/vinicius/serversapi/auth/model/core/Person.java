@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "pessoa")
@@ -35,4 +36,13 @@ public class Person extends BaseEntity {
 
     @OneToOne(mappedBy = "person")
     private User user;
+
+    @OneToMany(mappedBy = "person")
+    private List<Assignment> assignmentList;
+
+    @OneToMany(mappedBy = "person")
+    private List<PersonPhoto> photos;
+
+    @OneToOne(mappedBy = "person")
+    private PermanentEmployee permanentEmployee;
 }

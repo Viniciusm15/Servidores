@@ -7,8 +7,6 @@ import lombok.Data;
 @Data
 public class UnitRequestDto {
 
-    private Long id;
-
     @NotBlank(message = "O nome da unidade é obrigatório.")
     @Size(max = 200, message = "O nome da unidade deve ter no máximo 200 caracteres.")
     private String name;

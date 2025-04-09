@@ -14,14 +14,21 @@ public class AssignmentMapper {
         return Assignment.builder()
                 .person(person)
                 .unit(unit)
+                .assignmentDate(dto.getAssignmentDate())
+                .removalDate(dto.getRemovalDate())
+                .ordinance(dto.getOrdinanceNumber())
                 .build();
     }
 
     public AssignmentResponseDto toDto(Assignment entity) {
         AssignmentResponseDto dto = new AssignmentResponseDto();
         dto.setId(entity.getId());
+        dto.setPersonId(entity.getPerson().getId());
         dto.setPersonName(entity.getPerson().getName());
         dto.setUnitName(entity.getUnit().getName());
+        dto.setRegistrationNumber(entity.getPerson().getPermanentEmployee() != null
+                ? entity.getPerson().getPermanentEmployee().getRegistrationNumber()
+                : null);
         return dto;
     }
 }

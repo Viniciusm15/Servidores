@@ -8,7 +8,4 @@ public class PermanentEmployeeResponseDto {
     private String registrationNumber;
     private Long personId;
     private String personName;
-    private Integer age;
-    private String unitName;
-    private String photoUrl;
 }

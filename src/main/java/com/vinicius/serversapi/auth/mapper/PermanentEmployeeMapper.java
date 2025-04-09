@@ -11,7 +11,6 @@ public class PermanentEmployeeMapper {
 
     public PermanentEmployee toEntity(PermanentEmployeeRequestDto dto, Person person) {
         return PermanentEmployee.builder()
-                .id(person.getId())
                 .registrationNumber(dto.getRegistrationNumber())
                 .person(person)
                 .build();

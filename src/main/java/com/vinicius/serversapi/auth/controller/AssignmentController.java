@@ -33,6 +33,13 @@ public class AssignmentController {
         return ResponseEntity.ok(assignmentService.getAll(pageable));
     }
 
+    @GetMapping("/permanent-employees/by-unit/{unitId}")
+    public ResponseEntity<Page<AssignmentResponseDto>> getPermanentEmployeesByUnit(@PathVariable Long unitId, Pageable pageable) {
+        AssignmentRequestDto dto = new AssignmentRequestDto();
+        dto.setUnitId(unitId);
+        return ResponseEntity.ok(assignmentService.getPermanentEmployeesByUnit(dto, pageable));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<AssignmentResponseDto> update(@PathVariable Long id,
                                                         @Valid @RequestBody AssignmentRequestDto dto) {

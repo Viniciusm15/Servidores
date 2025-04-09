@@ -23,10 +23,6 @@ public class UserService implements IUserService {
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o e-mail: " + email));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getAuthorities()
-        );
+        return user;
     }
 }

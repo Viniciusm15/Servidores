@@ -10,7 +10,6 @@ public class TemporaryEmployeeMapper {
 
     public TemporaryEmployee toEntity(TemporaryEmployeeRequestDto dto, Person person) {
         return TemporaryEmployee.builder()
-                .id(dto.getId())
                 .admissionDate(dto.getAdmissionDate())
                 .dismissalDate(dto.getDismissalDate())
                 .person(person)

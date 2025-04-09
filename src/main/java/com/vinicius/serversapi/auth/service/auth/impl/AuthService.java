@@ -8,6 +8,7 @@ import com.vinicius.serversapi.auth.model.core.Person;
 import com.vinicius.serversapi.auth.repository.UserRepository;
 import com.vinicius.serversapi.auth.service.auth.contract.IAuthService;
 import com.vinicius.serversapi.auth.service.impl.PersonService;
+import com.vinicius.serversapi.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +33,7 @@ public class AuthService implements IAuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role("USER")
+                .role(Role.USER)
                 .person(person)
                 .build();
 

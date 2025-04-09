@@ -1,19 +1,19 @@
 package com.vinicius.serversapi.auth.model;
 
 import com.vinicius.serversapi.auth.model.core.Person;
+import com.vinicius.serversapi.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usuario")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,16 +30,16 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    private String role; // ex: USER, ADMIN
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToOne
     @JoinColumn(name = "pes_id")
     private Person person;
 
-    // Implementações do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+        return List.of(role);
     }
 
     @Override

@@ -10,7 +10,6 @@ public class UnitMapper {
 
     public Unit toEntity(UnitRequestDto dto) {
         return Unit.builder()
-                .id(dto.getId())
                 .name(dto.getName())
                 .acronym(dto.getAcronym())
                 .build();

@@ -36,6 +36,7 @@ public class PermanentEmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<PermanentEmployeeResponseDto> update(@PathVariable Long id,
                                                                @Valid @RequestBody PermanentEmployeeRequestDto dto) {
+
         return ResponseEntity.ok(permanentEmployeeService.update(id, dto));
     }
 
