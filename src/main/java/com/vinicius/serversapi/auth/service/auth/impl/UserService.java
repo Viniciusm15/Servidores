@@ -1,9 +1,7 @@
 package com.vinicius.serversapi.auth.service.auth.impl;
 
-import com.vinicius.serversapi.auth.model.User;
 import com.vinicius.serversapi.auth.repository.UserRepository;
 import com.vinicius.serversapi.auth.service.auth.contract.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +10,6 @@ public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

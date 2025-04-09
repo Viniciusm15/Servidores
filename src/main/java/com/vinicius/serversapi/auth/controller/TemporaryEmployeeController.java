@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +30,7 @@ public class TemporaryEmployeeController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TemporaryEmployeeResponseDto> create(@Valid @RequestBody TemporaryEmployeeRequestDto dto) {
         return ResponseEntity.ok(temporaryEmployeeService.create(dto));
     }
@@ -58,6 +60,7 @@ public class TemporaryEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor temporário não encontrado")
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TemporaryEmployeeResponseDto> update(@PathVariable Long id,
                                                                @Valid @RequestBody TemporaryEmployeeRequestDto dto) {
         return ResponseEntity.ok(temporaryEmployeeService.update(id, dto));
@@ -69,6 +72,7 @@ public class TemporaryEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor temporário não encontrado")
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         temporaryEmployeeService.delete(id);
         return ResponseEntity.noContent().build();

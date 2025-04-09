@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,6 +31,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AssignmentResponseDto> create(@Valid @RequestBody AssignmentRequestDto dto) {
         return ResponseEntity.ok(assignmentService.create(dto));
     }
@@ -41,6 +43,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AssignmentResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(assignmentService.getById(id));
     }
@@ -51,6 +54,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Page<AssignmentResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assignmentService.getAll(pageable));
     }
@@ -62,6 +66,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @GetMapping("/permanent-employees/by-unit/{unitId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Page<AssignmentResponseDto>> getPermanentEmployeesByUnit(
             @PathVariable Long unitId,
             Pageable pageable) {
@@ -78,6 +83,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AssignmentResponseDto> update(@PathVariable Long id,
                                                         @Valid @RequestBody AssignmentRequestDto dto) {
         return ResponseEntity.ok(assignmentService.update(id, dto));
@@ -90,6 +96,7 @@ public class AssignmentController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         assignmentService.delete(id);
         return ResponseEntity.noContent().build();

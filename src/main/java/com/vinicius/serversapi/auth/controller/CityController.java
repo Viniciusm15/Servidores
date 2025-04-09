@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +30,7 @@ public class CityController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CityResponseDto> create(@RequestBody CityRequestDto dto) {
         return ResponseEntity.ok(cityService.create(dto));
     }
@@ -58,6 +60,7 @@ public class CityController {
             @ApiResponse(responseCode = "404", description = "Cidade não encontrada")
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CityResponseDto> update(
             @PathVariable Long id,
             @RequestBody CityRequestDto dto
@@ -71,6 +74,7 @@ public class CityController {
             @ApiResponse(responseCode = "404", description = "Cidade não encontrada")
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         cityService.delete(id);
         return ResponseEntity.noContent().build();

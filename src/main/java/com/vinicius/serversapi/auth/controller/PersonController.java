@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class PersonController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PersonResponseDto> create(@RequestBody @Valid PersonRequestDto dto) {
         var person = personService.createAndReturnEntity(dto);
         return ResponseEntity.ok(personService.getById(person.getId()));
@@ -65,6 +67,7 @@ public class PersonController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PersonResponseDto> update(@PathVariable Long id, @RequestBody @Valid PersonRequestDto dto) {
         return ResponseEntity.ok(personService.update(id, dto));
     }
@@ -76,6 +79,7 @@ public class PersonController {
             @ApiResponse(responseCode = "401", description = "Não autorizado")
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();

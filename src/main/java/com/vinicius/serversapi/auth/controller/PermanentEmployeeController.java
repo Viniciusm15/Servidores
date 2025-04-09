@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,6 +30,7 @@ public class PermanentEmployeeController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PermanentEmployeeResponseDto> create(@Valid @RequestBody PermanentEmployeeRequestDto dto) {
         return ResponseEntity.ok(permanentEmployeeService.create(dto));
     }
@@ -58,6 +60,7 @@ public class PermanentEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor não encontrado")
     })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PermanentEmployeeResponseDto> update(@PathVariable Long id,
                                                                @Valid @RequestBody PermanentEmployeeRequestDto dto) {
         return ResponseEntity.ok(permanentEmployeeService.update(id, dto));
@@ -69,6 +72,7 @@ public class PermanentEmployeeController {
             @ApiResponse(responseCode = "404", description = "Servidor não encontrado")
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         permanentEmployeeService.delete(id);
         return ResponseEntity.noContent().build();

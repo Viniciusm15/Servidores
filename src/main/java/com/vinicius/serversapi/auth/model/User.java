@@ -1,5 +1,6 @@
 package com.vinicius.serversapi.auth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinicius.serversapi.auth.model.core.Person;
 import com.vinicius.serversapi.enums.Role;
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
