@@ -237,7 +237,7 @@ http://localhost:8080/swagger-ui/index.html
 2. Exemplo de payload:
 ```json
 {
-  "email": "vinicius@example.com",
+  "username": "vinicius",
   "password": "123456"
 }
 ```
@@ -252,66 +252,83 @@ Bearer SEU_TOKEN_AQUI
 ---
 
 #### 🛡️ Autenticação
-- `POST /auth/register`: Registro de usuário
-- `POST /auth/login`: Login de usuário
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/auth/register` | Público |
+| `POST` | `/auth/login` | Público |
+| `POST` | `/auth/refresh` | Público |
 
 #### 👤 Pessoas
-- `POST /persons`: Cadastrar pessoa
-- `GET /persons/{id}`: Buscar pessoa por ID
-- `GET /persons`: Listar todas as pessoas (paginado)
-- `PUT /persons/{id}`: Atualizar pessoa
-- `DELETE /persons/{id}`: Remover pessoa
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/persons` | `USER` (próprio), `ADMIN` |
+| `GET` | `/persons/{id}` | `USER` (só a própria), `ADMIN` |
+| `GET` | `/persons` | `ADMIN` |
+| `PUT` | `/persons/{id}` | `USER` (só a própria), `ADMIN` |
+| `DELETE` | `/persons/{id}` | `ADMIN` |
 
 #### 🖼️ Fotos de Pessoas
-- `POST /person-photos/upload`: Enviar múltiplas fotos de uma pessoa
-- `GET /person-photos/{id}`: Buscar foto por ID
-- `GET /person-photos`: Listar fotos (paginado)
-- `DELETE /person-photos/{id}`: Remover foto
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/person-photos/upload` | `USER` (próprio), `ADMIN` |
+| `GET` | `/person-photos/{id}` | `USER` (próprio), `ADMIN` |
+| `GET` | `/person-photos` | `ADMIN` |
+| `DELETE` | `/person-photos/{id}` | `USER` (próprio), `ADMIN` |
 
 #### 🏠 Endereços
-- `POST /addresses`: Cadastrar endereço
-- `GET /addresses/{id}`: Buscar endereço por ID
-- `GET /addresses`: Listar endereços (paginado)
-- `PUT /addresses/{id}`: Atualizar endereço
-- `DELETE /addresses/{id}`: Remover endereço
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/addresses` | `USER` (próprio), `ADMIN` |
+| `GET` | `/addresses/{id}` | `USER` (próprio), `ADMIN` |
+| `GET` | `/addresses` | `ADMIN` |
+| `PUT` | `/addresses/{id}` | `USER` (próprio), `ADMIN` |
+| `DELETE` | `/addresses/{id}` | `USER` (próprio), `ADMIN` |
 
 #### 🏙️ Cidades
-- `POST /cities`: Cadastrar cidade
-- `GET /cities/{id}`: Buscar cidade por ID
-- `GET /cities`: Listar cidades (paginado)
-- `PUT /cities/{id}`: Atualizar cidade
-- `DELETE /cities/{id}`: Remover cidade
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/cities` | `ADMIN` |
+| `GET` | `/cities/{id}` | `USER`, `ADMIN` |
+| `GET` | `/cities` | `USER`, `ADMIN` |
+| `PUT` | `/cities/{id}` | `ADMIN` |
+| `DELETE` | `/cities/{id}` | `ADMIN` |
 
 #### 🏢 Unidades
-- `POST /units`: Cadastrar unidade
-- `GET /units/{id}`: Buscar unidade por ID
-- `GET /units`: Listar unidades (paginado)
-- `PUT /units/{id}`: Atualizar unidade
-- `DELETE /units/{id}`: Remover unidade
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/units` | `ADMIN` |
+| `GET` | `/units/{id}` | `USER`, `ADMIN` |
+| `GET` | `/units` | `USER`, `ADMIN` |
+| `PUT` | `/units/{id}` | `ADMIN` |
+| `DELETE` | `/units/{id}` | `ADMIN` |
 
 #### 📋 Lotação
-- `POST /assignments` – Cadastrar lotação
-- `GET /assignments/{id}` – Buscar lotação por ID
-- `GET /assignments` – Listar lotações (paginado)
-- `GET /assignments/permanent-employees/by-unit/{unitId}` – Listar servidores efetivos por unidade (paginado)
-- `PUT /assignments/{id}` – Atualizar lotação
-- `DELETE /assignments/{id}` – Remover lotação
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/assignments` | `ADMIN` |
+| `GET` | `/assignments/{id}` | `ADMIN` |
+| `GET` | `/assignments` | `ADMIN` |
+| `GET` | `/assignments/permanent-employees/by-unit/{unitId}` | `ADMIN` |
+| `PUT` | `/assignments/{id}` | `ADMIN` |
+| `DELETE` | `/assignments/{id}` | `ADMIN` |
 
 #### 👨‍💼 Servidores Efetivos
-- `POST /permanent-employees`: Cadastrar servidor efetivo
-- `GET /permanent-employees/{id}`: Buscar servidor efetivo por ID
-- `GET /permanent-employees`: Listar servidores efetivos (paginado)
-- `PUT /permanent-employees/{id}`: Atualizar servidor efetivo
-- `DELETE /permanent-employees/{id}`: Remover servidor efetivo
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/permanent-employees` | `ADMIN` |
+| `GET` | `/permanent-employees/{id}` | `ADMIN` |
+| `GET` | `/permanent-employees` | `ADMIN` |
+| `PUT` | `/permanent-employees/{id}` | `ADMIN` |
+| `DELETE` | `/permanent-employees/{id}` | `ADMIN` |
 
 #### 👨‍🔧 Servidores Temporários
-- `POST /temporary-employees`: Cadastrar servidor temporário
-- `GET /temporary-employees/{id}`: Buscar servidor temporário por ID
-- `GET /temporary-employees`: Listar servidores temporários (paginado)
-- `PUT /temporary-employees/{id}`: Atualizar servidor temporário
-- `DELETE /temporary-employees/{id}`: Remover servidor temporário
-
----
+| Método | Endpoint | Roles Permitidas |
+|--------|----------|------------------|
+| `POST` | `/temporary-employees` | `ADMIN` |
+| `GET` | `/temporary-employees/{id}` | `ADMIN` |
+| `GET` | `/temporary-employees` | `ADMIN` |
+| `PUT` | `/temporary-employees/{id}` | `ADMIN` |
+| `DELETE` | `/temporary-employees/{id}` | `ADMIN` |
 
 ## 📦 Dependências
 
